@@ -3,8 +3,8 @@
     "src/server/*.ts",
     "src/shared/*.ts"
   ],
-  "compilerOptions": [
+  "compilerOptions": {
     "noImplicitAny": true,
     "target": "es5"
-  ]
+  }
 }
