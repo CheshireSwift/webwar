@@ -8,7 +8,12 @@ gulp.task('compileClient', function() {
     .js.pipe(gulp.dest('dist'))
 })
 
-gulp.task('browser', ['compileClient'])
+gulp.task('copyClient', function() {
+  return gulp.src(['static/public/**/*'])
+    .pipe(gulp.dest('dist/public'))
+})
+
+gulp.task('browser', ['compileClient', 'copyClient'])
 
 gulp.task('compileServer', function() {
   var tsProject = ts.createProject('tsconfig-server.json')
@@ -18,7 +23,7 @@ gulp.task('compileServer', function() {
 })
 
 gulp.task('copyServer', function() {
-  return gulp.src(['src/server/**/*', '!**/*.ts'])
+  return gulp.src(['static/server/**/*'])
     .pipe(gulp.dest('dist/server'))
 })
 
