@@ -18,7 +18,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp",
-    "types": "typings install"
+    "types": "typings install",
+    "postinstall": "npm run types"
   },
   "repository": {
     "type": "git",
