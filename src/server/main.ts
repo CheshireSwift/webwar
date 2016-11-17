@@ -9,6 +9,10 @@ app.get('/', function (req: any, res: any) {
   res.render('infantry', { scripts: ['main'] })
 })
 
+app.get('/map', function (req: any, res: any) {
+  res.render('mapGrid', { scripts: ['main'] })
+})
+
 const publicPath = path.join(__dirname, '../public')
 app.use('/public', express.static(publicPath))
 

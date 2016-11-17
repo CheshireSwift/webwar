@@ -1,0 +1,28 @@
+.mapContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    height: 300px;
+    width: 300px;
+}
+
+.mapTile {
+    align-content: center;
+    border: 1px solid #333;
+    display: flex;
+    flex-basis: 1;
+    margin:0;
+    width: 98px;
+    height: 98px;
+
+    background-repeat:none;
+    background-size: contain;
+}
+
+.plains {
+  background-image: url("http://awbw.amarriner.com/terrain/aw1/plain.gif");
+}
+
+.woods {
+  background-image: url("http://awbw.amarriner.com/terrain/aw1/wood.gif");
+}
