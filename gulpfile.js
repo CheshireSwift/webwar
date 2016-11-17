@@ -1,5 +1,6 @@
 var gulp = require('gulp')
 var ts = require('gulp-typescript')
+var sass = require('gulp-sass')
 
 gulp.task('compileClient', function() {
   var tsProject = ts.createProject('tsconfig-browser.json')
@@ -9,11 +10,17 @@ gulp.task('compileClient', function() {
 })
 
 gulp.task('copyClient', function() {
-  return gulp.src(['static/public/**/*'])
+  return gulp.src(['static/public/**/*', ])
     .pipe(gulp.dest('dist/public'))
 })
 
-gulp.task('browser', ['compileClient', 'copyClient'])
+gulp.task('compileStyles', function() {
+  return gulp.src('src/public/style/style.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('dist/public/style'))
+})
+
+gulp.task('browser', ['compileClient', 'copyClient', 'compileStyles'])
 
 gulp.task('compileServer', function() {
   var tsProject = ts.createProject('tsconfig-server.json')
