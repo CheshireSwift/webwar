@@ -1,7 +1,8 @@
 {
   "files": [
     "src/server/*.ts",
-    "src/shared/*.ts"
+    "src/shared/*.ts",
+    "typings/index.d.ts"
   ],
   "compilerOptions": {
     "noImplicitAny": true,
