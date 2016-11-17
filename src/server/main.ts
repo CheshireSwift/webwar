@@ -6,7 +6,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 
 app.get('/', function (req: any, res: any) {
-  res.render('index', { words: 'Hello, world!' })
+  res.render('infantry', { scripts: ['main'] })
 })
 
 const publicPath = path.join(__dirname, '../public')
