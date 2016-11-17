@@ -1,0 +1,10 @@
+{
+  "files": [
+    "src/browser/*.ts",
+    "src/shared/*.ts"
+  ],
+  "compilerOptions": [
+    "noImplicitAny": true,
+    "target": "es5"
+  ]
+}
