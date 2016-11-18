@@ -17,7 +17,7 @@ gulp.task('copyClient', function() {
 gulp.task('compileStyles', function() {
   return gulp.src('src/public/style/style.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('dist/public/style'))
+    .pipe(gulp.dest('dist/public'))
 })
 
 gulp.task('browser', ['compileClient', 'copyClient', 'compileStyles'])
