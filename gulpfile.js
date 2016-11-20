@@ -1,12 +1,22 @@
 var gulp = require('gulp')
 var ts = require('gulp-typescript')
+var browserify = require("browserify");
+var source = require('vinyl-source-stream');
+var tsify = require("tsify");
 var sass = require('gulp-sass')
 
 gulp.task('compileClient', function() {
-  var tsProject = ts.createProject('tsconfig-browser.json')
-  return tsProject.src()
-    .pipe(tsProject())
-    .js.pipe(gulp.dest('dist'))
+  return browserify({
+          basedir: '.',
+          debug: true,
+          entries: ['src/public/main.ts'],
+          cache: {},
+          packageCache: {}
+      })
+      .plugin(tsify)
+      .bundle()
+      .pipe(source('bundle.js'))
+      .pipe(gulp.dest("dist"));
 })
 
 gulp.task('copyClient', function() {

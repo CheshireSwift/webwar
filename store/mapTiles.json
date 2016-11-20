@@ -1,0 +1,6 @@
+{    "mapTiles": [
+        {"id":0, "name": "plains"},
+        {"id":1, "name": "woods"},
+        {"id":2, "name": "mountain"}
+    ]
+}
