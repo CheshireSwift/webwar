@@ -23,7 +23,8 @@
     "build": "gulp",
     "types": "typings install",
     "postinstall": "npm run types",
-    "start": "gulp && node ."
+    "start": "gulp && node .",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",
