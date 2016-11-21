@@ -6,7 +6,9 @@
   <link rel="stylesheet" type="text/css" href="/public/style.css" />
 </head>
 <body>
-  {{{body}}}
+  <div class="header">{{> header }}</div>
+  <div class="content">{{{body}}}</div>
+  <div class="navbar">{{> navbar }}</div>
   {{#each scripts}}
   <script src="/public/{{this}}.js"></script>
   {{/each}}
