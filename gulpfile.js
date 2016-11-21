@@ -8,7 +8,7 @@ var gulp = require('gulp'),
   es = require('event-stream');
 
 gulp.task('compileClient', function() {
-  var files = ['public/script/infantry.ts', 'public/script/mapGrid.ts'];
+  var files = ['public/infantry.ts', 'public/mapGrid.ts'];
   var tasks = files.map(function(entry) {
     return browserify({
         basedir: 'src',
@@ -25,7 +25,7 @@ gulp.task('compileClient', function() {
       .pipe(rename({
                 extname: '.bundle.js'
             }))
-      .pipe(gulp.dest("dist/public"));
+      .pipe(gulp.dest("dist"));
     });
     return es.merge.apply(null, tasks);
 })
