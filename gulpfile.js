@@ -7,16 +7,18 @@ var sass = require('gulp-sass')
 
 gulp.task('compileClient', function() {
   return browserify({
-          basedir: '.',
-          debug: true,
-          entries: ['src/public/main.ts'],
-          cache: {},
-          packageCache: {}
-      })
-      .plugin(tsify)
-      .bundle()
-      .pipe(source('bundle.js'))
-      .pipe(gulp.dest("dist"));
+      basedir: 'src/public',
+      debug: true,
+      entries: ['main.ts'],
+      require: ['../../typings/index.d.ts'],
+      cache: {},
+      packageCache: {}
+    }).plugin(tsify, {
+      noImplicitAny: true,
+      target: "es5"
+    }).bundle()
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest("dist/public"));
 })
 
 gulp.task('copyClient', function() {

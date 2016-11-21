@@ -10,7 +10,6 @@
     "hbs": "^4.0.1"
   },
   "devDependencies": {
-    "@types/node": "^6.0.48",
     "browserify": "^13.1.1",
     "gulp": "^3.9.1",
     "gulp-browserify": "^0.5.1",

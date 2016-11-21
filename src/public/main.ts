@@ -1,6 +1,5 @@
 
-var fs = require("fs"),
-  json;
+var fs = require("fs")
 
 window.onload = function() {
   document.getElementById('infantrymans').onclick = function() { alert('pew') }
@@ -21,7 +20,7 @@ function loadMap() {
 }
 
 
-function readJsonFileSync(filepath, encoding){
+function readJsonFileSync(filepath: string, encoding: string){
     if (typeof (encoding) == 'undefined'){
         encoding = 'utf8';
     }
