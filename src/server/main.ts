@@ -6,11 +6,11 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 
 app.get('/', function (req: any, res: any) {
-  res.render('infantry', { scripts: ['bundle'] })
+  res.render('infantry')
 })
 
 app.get('/map', function (req: any, res: any) {
-  res.render('mapGrid', { scripts: ['bundle'] })
+  res.render('mapGrid', { scripts: ['mapGrid'] })
 })
 
 const publicPath = path.join(__dirname, '../public')
