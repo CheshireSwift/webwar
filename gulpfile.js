@@ -1,24 +1,33 @@
-var gulp = require('gulp')
-var ts = require('gulp-typescript')
-var browserify = require("browserify");
-var source = require('vinyl-source-stream');
-var tsify = require("tsify");
-var sass = require('gulp-sass')
+var gulp = require('gulp'),
+  ts = require('gulp-typescript'),
+  browserify = require("browserify"),
+  source = require('vinyl-source-stream'),
+  tsify = require("tsify"),
+  sass = require('gulp-sass'),
+  rename = require('gulp-rename'),
+  es = require('event-stream');
 
 gulp.task('compileClient', function() {
-  return browserify({
-      basedir: 'src/public',
-      debug: true,
-      entries: ['main.ts'],
-      require: ['../../typings/index.d.ts'],
-      cache: {},
-      packageCache: {}
-    }).plugin(tsify, {
-      noImplicitAny: true,
-      target: "es5"
-    }).bundle()
-    .pipe(source('bundle.js'))
-    .pipe(gulp.dest("dist/public"));
+  var files = ['public/script/infantry.ts', 'public/script/mapGrid.ts'];
+  var tasks = files.map(function(entry) {
+    return browserify({
+        basedir: 'src',
+        debug: true,
+        entries: [entry],
+        require: ['../typings/index.d.ts'],
+        cache: {},
+        packageCache: {}
+      }).plugin(tsify, {
+        noImplicitAny: true,
+        target: "es5"
+      }).bundle()
+      .pipe(source(entry))//qqtas whats this one
+      .pipe(rename({
+                extname: '.bundle.js'
+            }))
+      .pipe(gulp.dest("dist/public"));
+    });
+    return es.merge.apply(null, tasks);
 })
 
 gulp.task('copyClient', function() {
