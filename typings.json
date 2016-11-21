@@ -4,6 +4,7 @@
     "express": "registry:npm/express#4.14.0+20160925001530"
   },
   "globalDependencies": {
+    "jquery": "registry:dt/jquery#1.10.0+20160929162922",
     "node": "registry:env/node#6.0.0+20161105011511"
   }
 }
