@@ -10,6 +10,7 @@ var gulp = require('gulp'),
 
 const TYPESCRIPT_PUBLIC = 'src/public/**/*.ts'
 const TYPESCRIPT_SERVER = 'src/server/**/*.ts'
+const TYPESCRIPT_SHARED = 'src/shared/**/*.ts'
 const STATIC_PUBLIC = 'static/public/**/*'
 const STATIC_SERVER = 'static/server/**/*'
 const STYLES = 'src/public/style/style.scss'
@@ -29,12 +30,10 @@ gulp.task('compileClient', function() {
         target: "es5"
       }).bundle()
       .pipe(source(entry))
-      .pipe(rename({
-                extname: '.bundle.js'
-            }))
+      .pipe(rename({ extname: '.bundle.js' }))
       .pipe(gulp.dest("dist"));
-    });
-    return es.merge.apply(null, tasks);
+  });
+  return es.merge.apply(null, tasks);
 })
 
 gulp.task('copyClient', function() {
@@ -71,8 +70,8 @@ gulp.task('watch', ['browser', 'server'], function() {
   server.run(['dist/server/main.js'])
 
   // Run tasks on change (all output to dist/*)
-  gulp.watch([TYPESCRIPT_PUBLIC], ['compileClient'])
-  gulp.watch([TYPESCRIPT_SERVER], ['compileServer'])
+  gulp.watch([TYPESCRIPT_PUBLIC, TYPESCRIPT_SHARED], ['compileClient'])
+  gulp.watch([TYPESCRIPT_SERVER, TYPESCRIPT_SHARED], ['compileServer'])
   gulp.watch([STATIC_PUBLIC], ['copyClient'])
   gulp.watch([STATIC_SERVER], ['copyServer'])
   gulp.watch([STYLES], ['compileStyles'])
