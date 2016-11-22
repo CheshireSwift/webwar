@@ -5,25 +5,30 @@ body {
     background-color: $backgroundColour;
     color: $textColour;
     margin: 0;
-    display: grid;
-    grid-template-columns: 150px auto;
-    grid-template-rows: 60px auto;
-    min-height: 100vh;
+    box-sizing: border-box;
+    overflow: hidden;
 
     .header {
-        grid-column: 1 / 3;
-        grid-row: 1 / 2;
+        width: 100%;
+    }
+
+    .content-container {
+        width: 100%;
+        height: calc(100vh - #{$headerHeight});
     }
     
     .content {
-        margin: 16px;
-        grid-column: 2 / 3;
-        grid-row: 2 / 3;
+        width: calc(100% - #{$navbarWidth});
+        padding: 16px;
+        height: 100%;
+        float: right;
+        overflow: auto;
     }
 
     .navbar {
-        grid-column: 1 / 2;
-        grid-row: 2 / 3;
+        width: $navbarWidth;
+        height: 100%;
+        float: left;
     }
 
     li {
@@ -33,4 +38,8 @@ body {
     a, u {
         text-decoration: none;
     }
+}
+
+*, *:before, *:after {
+        box-sizing: inherit;
 }
