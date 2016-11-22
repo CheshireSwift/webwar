@@ -1,0 +1,12 @@
+.header {
+    background-color: $navbarColour;
+    color: $navbarTextColour;
+    text-align: center;
+    border-bottom: 1px solid $backgroundColour;
+}
+
+.header-text {
+    font-size: $headingFontSize;
+    line-height: $headingLineHeight;
+    padding: 16px;
+}

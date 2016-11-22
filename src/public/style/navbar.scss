@@ -1,0 +1,24 @@
+.navbar {
+    background-color: $navbarColour;
+}
+
+.navbar-list {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.navbar-item {
+    display: block;
+    width: 100%;
+    font-size: $subHeadingFontSize;
+    line-height: $subHeadingLineHeight;
+    color: $navbarTextColour;
+    padding: 16px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $backgroundColour;
+        color: $textColour;
+    }
+}

@@ -1,3 +1,45 @@
 body {
-    //background-image: url('http://i2.kym-cdn.com/photos/images/newsfeed/000/753/868/b9f.gif');
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: $textFontSize;
+    line-height: $textLineHeight;
+    background-color: $backgroundColour;
+    color: $textColour;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    .header {
+        width: 100%;
+    }
+
+    .content-container {
+        width: 100%;
+        height: calc(100vh - #{$headerHeight});
+    }
+
+    .content {
+        width: calc(100% - #{$navbarWidth});
+        padding: 16px;
+        height: 100%;
+        float: right;
+        overflow: auto;
+    }
+
+    .navbar {
+        width: $navbarWidth;
+        height: 100%;
+        float: left;
+    }
+
+    li {
+        list-style-type: none;
+    }
+
+    a, u {
+        text-decoration: none;
+    }
+}
+
+*, *:before, *:after {
+        box-sizing: inherit;
 }

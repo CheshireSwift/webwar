@@ -6,6 +6,10 @@
   <link rel="stylesheet" type="text/css" href="/public/style.css" />
 </head>
 <body>
-  {{{body}}}
+  <div class="header">{{> header }}</div>
+  <div class="content-container">
+    <div class="content">{{{body}}}</div>
+    <div class="navbar">{{> navbar }}</div>
+  </div>
 </body>
 </html>
