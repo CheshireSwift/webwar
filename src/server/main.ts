@@ -2,6 +2,7 @@ import path = require('path');
 import * as hbs from 'hbs';
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
+import * as formidable from 'formidable'
 
 import { Game, getWaitingGames, addGame } from '../shared/Game'
 import { Map } from '../shared/Map'
@@ -26,9 +27,17 @@ app.get('/games/waiting', function (req: any, res: any) {
 	})
 })
 
+app.get('/games/create', function (req: any, res: any) {
+	res.render('createGame')
+})
+
 app.post('/games', bodyParser.json(), function (req: any, res: any) {
-	var id: number = addGame(req.body.name)
-	res.send(id.toString())
+	var form = new formidable.IncomingForm()
+
+	form.parse(req, function (err: any, fields: any, files: any) {
+		var id = addGame(fields.name)
+		res.redirect('/games/' + id)
+	})
 })
 
 const publicPath = path.join(__dirname, '../public')
