@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var gulp = require('gulp'),
   ts = require('gulp-typescript'),
   browserify = require("browserify"),
