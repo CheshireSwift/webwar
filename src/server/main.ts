@@ -1,8 +1,9 @@
 import path = require('path');
 import * as hbs from 'hbs';
 import * as express from 'express'
-import { getWaitingGames } from '../shared/Game'
+import * as bodyParser from 'body-parser'
 
+import { Game, getWaitingGames, addGame } from '../shared/Game'
 import { Map } from '../shared/Map'
 
 var app = express()
@@ -18,11 +19,16 @@ app.get('/map', function (req: any, res: any) {
   res.render('mapGrid', { scripts: ['mapGrid'] })
 })
 
-app.get('/games/waiting', function(req: any, res: any) {
+app.get('/games/waiting', function (req: any, res: any) {
 	res.render('gameList', {
 		title: "Waiting Games",
 		games: getWaitingGames()
 	})
+})
+
+app.post('/games', bodyParser.json(), function (req: any, res: any) {
+	var id: number = addGame(req.body.name)
+	res.send(id.toString())
 })
 
 const publicPath = path.join(__dirname, '../public')

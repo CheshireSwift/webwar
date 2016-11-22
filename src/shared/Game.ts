@@ -1,34 +1,21 @@
 import { Storable } from './Storable'
 
-export class Game implements Storable {
-	public readonly name: string
-
-	public constructor(json: string) {
-		var parsed: any = JSON.parse(json)
-		this.name = parsed.name
-	}
-
-	public toJSON(): string {
-		return JSON.stringify(this)
-	}
-}
-
-export interface GameListModel {
-	var pageTitle: string,
-	var games: Game[]
+export interface Game  {
+	name: string
 }
 
 var waitingGames: Game[] =[
-	Storable.fromJSON(
-		Game,
-		'{"name": "waiting game"}'
-	),
-	Storable.fromJSON(
-		Game,
-		'{"name": "waiting game 2"}'
-	)
+	{name : "Preset Game"}
 ]
 
 export function getWaitingGames(): Game[] {
 	return waitingGames
+}
+
+export function addGame(name: string): number {
+	var nextId = waitingGames.length
+	waitingGames.push({
+		name: name
+	})
+	return nextId
 }
