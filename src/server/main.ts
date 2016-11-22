@@ -1,6 +1,7 @@
 import path = require('path');
 import * as hbs from 'hbs';
 import * as express from 'express'
+import { getWaitingGames } from '../shared/Game'
 
 import { Map } from '../shared/Map'
 
@@ -15,6 +16,13 @@ app.get('/', function (req: any, res: any) {
 
 app.get('/map', function (req: any, res: any) {
   res.render('mapGrid', { scripts: ['mapGrid'] })
+})
+
+app.get('/games/waiting', function(req: any, res: any) {
+	res.render('gameList', {
+		title: "Waiting Games",
+		games: getWaitingGames()
+	})
 })
 
 const publicPath = path.join(__dirname, '../public')
