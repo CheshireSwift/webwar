@@ -6,6 +6,8 @@ import * as formidable from 'formidable'
 
 import { Game, getWaitingGames, addGame } from '../shared/Game'
 import { Map } from '../shared/Map'
+import { Unit } from '../shared/Unit'
+import { Army } from '../shared/Army'
 
 var app = express()
 app.set('views', path.join(__dirname, 'views'))
@@ -46,5 +48,7 @@ app.use('/public', express.static(publicPath))
 const port = process.env['PORT'] || 9000
 app.listen(port, function () {
   Map.test()
+  Unit.test()
+  Army.test()
   console.log(`Example app listening on port ${port}!`)
 })
