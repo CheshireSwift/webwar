@@ -1,9 +1,7 @@
-.mapContainer {
+#mapContainer {
     display: flex;
     flex-wrap: wrap;
     margin: auto;
-    height: 300px;
-    width: 300px;
 }
 
 .mapTile {
@@ -12,17 +10,17 @@
     display: flex;
     flex-basis: 1;
     margin:0;
-    width: 98px;
-    height: 98px;
+    width: 100px;
+    height: 100px;
 
     background-repeat:none;
     background-size: contain;
 }
 
-.plains {
+.plains, .terrain0 {
   background-image: url("http://awbw.amarriner.com/terrain/aw1/plain.gif");
 }
 
-.woods {
+.woods, .terrain1 {
   background-image: url("http://awbw.amarriner.com/terrain/aw1/wood.gif");
 }

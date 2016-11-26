@@ -14,6 +14,15 @@ export class Map implements Storable {
     return JSON.stringify(this)
   }
 
+  public width(): number {
+    return this.tileIds[0].length
+  }
+
+  public height(): number {
+    return this.tileIds.length
+
+  }
+
   public static test() {
     var testvar: Map = Storable.fromJSON(
       Map,
