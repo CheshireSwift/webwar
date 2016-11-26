@@ -7,7 +7,7 @@ export class Army implements Storable {
 
   public constructor(json: string) {
     var parsed: any = JSON.parse(json)
-    this.colour = parsed.colour
+    this.colourId = parsed.colourId
     this.units = parsed.units
   }
 
@@ -19,17 +19,25 @@ export class Army implements Storable {
     this.units.push(unit)
   }
 
-  public static test() {
-    var testUnit: Unit = Storable.fromJSON(
+//qqtas: how to put various Unit subclasses in here?
+// Do we have to look up typeId then parse them accordingly?
+  public static test():Army {
+    var testUnitA: Unit = Storable.fromJSON(
       Unit,
       '{ "typeId": 0, "health": 10, "xPos": 1, "yPos":2 }'
+    )
+    var testUnitB: Unit = Storable.fromJSON(
+      Unit,
+      '{ "typeId": 0, "health": 10, "xPos": 2, "yPos":3 }'
     )
 
     var testArmy: Army = Storable.fromJSON(
       Army,
-      '{ "colour": 0, "units": [] }'
+      '{ "colourId": 0, "units": [] }'
     )
-    testArmy.addUnit(testUnit);
+    testArmy.addUnit(testUnitA)
+    testArmy.addUnit(testUnitB)
     console.log(testArmy)
+    return testArmy
   }
 }

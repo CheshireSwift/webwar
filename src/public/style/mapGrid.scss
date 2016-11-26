@@ -13,7 +13,16 @@
     width: 100px;
     height: 100px;
 
-    background-repeat:none;
+    background-repeat:no-repeat;
+    background-size: contain;
+}
+
+.unitSlot {
+    align-content: center;
+    margin:0;
+    width: 100px;
+    height: 100px;
+    background-repeat:no-repeat;
     background-size: contain;
 }
 
@@ -23,4 +32,8 @@
 
 .woods, .terrain1 {
   background-image: url("http://awbw.amarriner.com/terrain/aw1/wood.gif");
+}
+
+.infantry, .unit0 {
+  background-image: url("http://awbw.amarriner.com/terrain/aw1/geinfantry.gif");
 }
