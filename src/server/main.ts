@@ -1,10 +1,10 @@
 import path = require('path');
 import * as hbs from 'hbs';
 import * as express from 'express'
-import * as bodyParser from 'body-parser'
 import * as formidable from 'formidable'
 
-import { Game, getWaitingGames, addGame } from '../shared/Game'
+import { Game } from '../shared/Game'
+import { getWaitingGames, addGame } from './GameStore'
 import { Map } from '../shared/Map'
 import { Unit } from '../shared/Unit'
 import { Army } from '../shared/Army'
@@ -33,7 +33,7 @@ app.get('/games/create', function (req: any, res: any) {
 	res.render('createGame')
 })
 
-app.post('/games', bodyParser.json(), function (req: any, res: any) {
+app.post('/api/games/create', function (req: any, res: any) {
 	var form = new formidable.IncomingForm()
 
 	form.parse(req, function (err: any, fields: any, files: any) {
