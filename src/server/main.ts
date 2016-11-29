@@ -2,17 +2,20 @@ import path = require('path');
 import * as hbs from 'hbs';
 import * as express from 'express'
 import * as formidable from 'formidable'
+import * as cookieParser from 'cookie-parser'
 
 import { Game, GameState } from '../shared/Game'
 import { getGamesWithState, addGame, getGame, startGame, endGame } from './GameStore'
 import { Map } from '../shared/Map'
 import { Unit } from '../shared/Unit'
 import { Army } from '../shared/Army'
+import { LoginInfo, getLoginInfo } from './LoginInfo'
 
 var app = express()
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 hbs.registerPartials(__dirname + '/views/partials');
+app.use(cookieParser())
 
 app.get('/', function (req: any, res: any) {
   res.render('infantry')
@@ -27,10 +30,12 @@ app.get('/games/:id(\\d+)', function (req: any, res: any) {
 	if (game == null) {
 		res.status(404).send('No game found with that ID')
 	}
+	var loginInfo: LoginInfo = getLoginInfo(req.cookies)
 	res.render('gamePage', { 
 		game: game,
 		isWaiting: game.state == GameState.WAITING,
-		isInProgress: game.state == GameState.IN_PROGRESS
+		isInProgress: game.state == GameState.IN_PROGRESS,
+		loginInfo: loginInfo
 	})
 })
 
