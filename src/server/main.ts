@@ -35,7 +35,8 @@ app.get('/games/:id(\\d+)', function (req: any, res: any) {
 		game: game,
 		isWaiting: game.state == GameState.WAITING,
 		isInProgress: game.state == GameState.IN_PROGRESS,
-		loginInfo: loginInfo
+		loginInfo: loginInfo,
+		scripts: ['login']
 	})
 })
 

@@ -16,7 +16,7 @@ const STATIC_SERVER = 'static/server/**/*'
 const STYLES = 'src/public/style/style.scss'
 
 gulp.task('compileClient', function() {
-  var files = ['public/infantry.ts', 'public/mapGrid.ts'];
+  var files = ['public/infantry.ts', 'public/mapGrid.ts', 'public/login.ts'];
   var tasks = files.map(function(entry) {
     return browserify({
         basedir: 'src',

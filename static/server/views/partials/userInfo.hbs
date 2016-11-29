@@ -1,5 +1,6 @@
+<script src="/public/login.bundle.js"></script>
 {{#if loggedIn}}
-	<div>Hello {{username}}</div>
+	<div>Hello {{username}}</div> <button id='logout-button'>Log out</button>
 {{else}}
-	<div>You are not logged in</div>
+	<button id='login-button'>Login</button>
 {{/if}}

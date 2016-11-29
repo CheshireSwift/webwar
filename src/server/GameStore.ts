@@ -2,8 +2,8 @@ import { Game, GameState } from '../shared/Game'
 
 var games: Game[] = [
 	{
-		name : "Preset Game"
-		id: 0
+		name : "Preset Game",
+		id: 0,
 		state: GameState.WAITING
 	}
 ]
@@ -15,8 +15,8 @@ export function getGamesWithState(state: GameState): Game[] {
 export function addGame(name: string): number {
 	var nextId = games.length
 	games.push({
-		name: name
-		id: nextId
+		name: name,
+		id: nextId,
 		state: GameState.WAITING
 	})
 	return nextId

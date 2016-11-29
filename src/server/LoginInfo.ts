@@ -1,4 +1,4 @@
-interface LoginInfo {
+export interface LoginInfo {
 	loggedIn: boolean,
 	username: string
 }
