@@ -1,0 +1,13 @@
+<h1>{{game.name}}</h1>
+<div>Game State: {{game.state}}</div>
+{{#if isWaiting}}
+<form action="/api/games/{{game.id}}/start" method="post">
+    <button name="start-button" value="start">Start Game</button>
+</form>
+{{/if}}
+{{#if isInProgress}}
+<form action="/api/games/{{game.id}}/end" method="post">
+    <button name="end-button" value="end">End Game</button>
+</form>
+{{/if}}
+<div>More stuff here soon...</div>

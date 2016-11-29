@@ -3,8 +3,8 @@ import * as hbs from 'hbs';
 import * as express from 'express'
 import * as formidable from 'formidable'
 
-import { Game } from '../shared/Game'
-import { getWaitingGames, addGame } from './GameStore'
+import { Game, GameState } from '../shared/Game'
+import { getGamesWithState, addGame, getGame, startGame, endGame } from './GameStore'
 import { Map } from '../shared/Map'
 import { Unit } from '../shared/Unit'
 import { Army } from '../shared/Army'
@@ -22,10 +22,36 @@ app.get('/map', function (req: any, res: any) {
   res.render('mapGrid', { scripts: ['mapGrid'] })
 })
 
+app.get('/games/:id(\\d+)', function (req: any, res: any) {
+	var game = getGame(req.params.id)
+	if (game == null) {
+		res.status(404).send('No game found with that ID')
+	}
+	res.render('gamePage', { 
+		game: game,
+		isWaiting: game.state == GameState.WAITING,
+		isInProgress: game.state == GameState.IN_PROGRESS
+	})
+})
+
 app.get('/games/waiting', function (req: any, res: any) {
 	res.render('gameList', {
 		title: "Waiting Games",
-		games: getWaitingGames()
+		games: getGamesWithState(GameState.WAITING)
+	})
+})
+
+app.get('/games/inProgress', function (req: any, res: any) {
+	res.render('gameList', {
+		title: "In Progress Games",
+		games: getGamesWithState(GameState.IN_PROGRESS)
+	})
+})
+
+app.get('/games/finished', function (req: any, res: any) {
+	res.render('gameList', {
+		title: "In Progress Games",
+		games: getGamesWithState(GameState.FINISHED)
 	})
 })
 
@@ -41,6 +67,16 @@ app.post('/api/games/create', function (req: any, res: any) {
 		res.redirect('/games/' + id)
 	})
 })
+
+app.post('/api/games/:id(\\d+)/start', function (req: any, res: any) {
+	startGame(req.params.id)
+	res.redirect(req.get('referer'));
+}) 
+
+app.post('/api/games/:id(\\d+)/end', function (req: any, res: any) {
+	endGame(req.params.id)
+	res.redirect(req.get('referer'));
+}) 
 
 const publicPath = path.join(__dirname, '../public')
 app.use('/public', express.static(publicPath))
