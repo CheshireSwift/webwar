@@ -69,7 +69,7 @@ app.post('/api/games/create', function (req: any, res: any) {
 	var form = new formidable.IncomingForm()
 
 	form.parse(req, function (err: any, fields: any, files: any) {
-		var id = addGame(fields.name)
+		var id = addGame(fields.name, fields.numberOfPlayers)
 		res.redirect('/games/' + id)
 	})
 })

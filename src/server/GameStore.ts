@@ -4,7 +4,8 @@ var games: Game[] = [
 	{
 		name : "Preset Game",
 		id: 0,
-		state: GameState.WAITING
+		state: GameState.WAITING,
+		numberOfPlayers: 3
 	}
 ]
 
@@ -12,12 +13,13 @@ export function getGamesWithState(state: GameState): Game[] {
 	return games.filter(game => game.state == state)
 }
 
-export function addGame(name: string): number {
+export function addGame(name: string, numberOfPlayers: number): number {
 	var nextId = games.length
 	games.push({
 		name: name,
 		id: nextId,
-		state: GameState.WAITING
+		state: GameState.WAITING,
+		numberOfPlayers: numberOfPlayers
 	})
 	return nextId
 }
