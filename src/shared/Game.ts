@@ -6,6 +6,7 @@ export interface Game  {
 	numberOfPlayers: number
 	players: string[]
 	owner: string
+	currentTurn: number
 }
 
 export enum GameState {

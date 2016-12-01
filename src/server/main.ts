@@ -5,7 +5,9 @@ import * as formidable from 'formidable'
 import * as cookieParser from 'cookie-parser'
 
 import { Game, GameState } from '../shared/Game'
-import { getGamesWithState, addGame, getGame, startGame, endGame, joinGame, canJoinGame, canStartGame } from './GameStore'
+import { getGamesWithState, addGame, getGame, startGame, 
+	endGame, joinGame, canJoinGame, canStartGame, isUsersTurn, 
+	endTurn } from './GameStore'
 import { Map } from '../shared/Map'
 import { Unit } from '../shared/Unit'
 import { Army } from '../shared/Army'
@@ -35,7 +37,9 @@ app.get('/games/:id(\\d+)', function (req: any, res: any) {
 		game: game,
 		canStartGame: canStartGame(req.params.id, loginInfo.username),
 		isInProgress: game.state == GameState.IN_PROGRESS,
-		canJoinGame: loginInfo.loggedIn && canJoinGame(req.params.id, loginInfo.username)
+		canJoinGame: loginInfo.loggedIn && canJoinGame(req.params.id, loginInfo.username),
+		currentPlayer: game.players[game.currentTurn],
+		isUsersTurn: game.state == GameState.IN_PROGRESS && isUsersTurn(req.params.id, loginInfo.username),
 		loginInfo: loginInfo,
 		scripts: ['login']
 	})
@@ -91,6 +95,13 @@ app.get('/api/games/:id(\\d)/join', function (req: any, res: any) {
 	var loginInfo: LoginInfo = getLoginInfo(req.cookies)
 
 	joinGame(req.params.id, loginInfo.username)
+	res.redirect(req.get('referer'));
+})
+
+app.get('/api/games/:id(\\d)/endTurn', function (req: any, res: any) {
+	var loginInfo: LoginInfo = getLoginInfo(req.cookies)
+
+	endTurn(req.params.id, loginInfo.username)
 	res.redirect(req.get('referer'));
 })
 

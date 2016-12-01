@@ -19,7 +19,14 @@
 {{/each}}
 </ul>
 {{#if canJoinGame}}
-	<a href='/api/games/{{game.id}}/join'>Join Game!</a>
+<a href='/api/games/{{game.id}}/join'>Join Game!</a>
+{{/if}}
+
+{{#if isInProgress}}
+<div>Currently it is {{currentPlayer}}'s turn</div>
+{{/if}}
+{{#if isUsersTurn}}
+<a href='/api/games/{{game.id}}/endTurn'>End Your Turn</a>
 {{/if}}
 
 <div>More stuff here soon...</div>
