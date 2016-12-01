@@ -1,7 +1,7 @@
 <h1>{{game.name}}</h1>
 <div>Game State: {{game.state}}</div>
 <div>Owner: {{game.owner}}</div>
-{{#if isWaiting}}
+{{#if canStartGame}}
 <form action="/api/games/{{game.id}}/start" method="post">
     <button name="start-button" value="start">Start Game</button>
 </form>

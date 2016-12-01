@@ -60,3 +60,10 @@ export function canJoinGame(id: number, username: string) {
 		&& game.players.indexOf(username) < 0
 		&& game.players.length < game.numberOfPlayers
 }
+
+export function canStartGame(id: number, username: string) {
+	var game = games[id]
+	return game.state == GameState.WAITING
+		&& game.owner == username
+		&& game.players.length == game.numberOfPlayers
+}

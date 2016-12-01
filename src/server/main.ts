@@ -5,7 +5,7 @@ import * as formidable from 'formidable'
 import * as cookieParser from 'cookie-parser'
 
 import { Game, GameState } from '../shared/Game'
-import { getGamesWithState, addGame, getGame, startGame, endGame, joinGame, canJoinGame } from './GameStore'
+import { getGamesWithState, addGame, getGame, startGame, endGame, joinGame, canJoinGame, canStartGame } from './GameStore'
 import { Map } from '../shared/Map'
 import { Unit } from '../shared/Unit'
 import { Army } from '../shared/Army'
@@ -33,7 +33,7 @@ app.get('/games/:id(\\d+)', function (req: any, res: any) {
 	var loginInfo: LoginInfo = getLoginInfo(req.cookies)
 	res.render('gamePage', { 
 		game: game,
-		isWaiting: game.state == GameState.WAITING,
+		canStartGame: canStartGame(req.params.id, loginInfo.username),
 		isInProgress: game.state == GameState.IN_PROGRESS,
 		canJoinGame: loginInfo.loggedIn && canJoinGame(req.params.id, loginInfo.username)
 		loginInfo: loginInfo,
