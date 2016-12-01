@@ -4,6 +4,8 @@ export interface Game  {
 	state: GameState
 
 	numberOfPlayers: number
+	players: string[]
+	owner: string
 }
 
 export enum GameState {

@@ -1,14 +1,18 @@
-<h1>Create a new game!</h1>
-<form action="/api/games/create" method="post" enctype="multipart/form-data">
-	Name:
-	<input type="text" name="name">
-	<br>
-	Number of Players:
-	<select name="numberOfPlayers">
-		<option>2</option>
-		<option>3</option>
-		<option>4</option>
-	</select>
-	<br>
-	<input type="submit">
-</form>
+{{#if loginInfo.loggedIn}}
+	<h1>Create a new game!</h1>
+	<form action="/api/games/create" method="post" enctype="multipart/form-data">
+		Name:
+		<input type="text" name="name">
+		<br>
+		Number of Players:
+		<select name="numberOfPlayers">
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+		</select>
+		<br>
+		<input type="submit">
+	</form>
+{{else}}
+	<div>Please log in to create a game!</div>
+{{/if}}

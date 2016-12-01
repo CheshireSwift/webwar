@@ -1,5 +1,6 @@
 <h1>{{game.name}}</h1>
 <div>Game State: {{game.state}}</div>
+<div>Owner: {{game.owner}}</div>
 {{#if isWaiting}}
 <form action="/api/games/{{game.id}}/start" method="post">
     <button name="start-button" value="start">Start Game</button>
@@ -11,4 +12,14 @@
 </form>
 {{/if}}
 <div>Number of players: {{game.numberOfPlayers}}</div>
+<div>Players:</div>
+<ul>
+{{#each game.players}}
+	<li>{{this}}</li>
+{{/each}}
+</ul>
+{{#if canJoinGame}}
+	<a href='/api/games/{{game.id}}/join'>Join Game!</a>
+{{/if}}
+
 <div>More stuff here soon...</div>

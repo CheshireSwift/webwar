@@ -5,7 +5,7 @@ import * as formidable from 'formidable'
 import * as cookieParser from 'cookie-parser'
 
 import { Game, GameState } from '../shared/Game'
-import { getGamesWithState, addGame, getGame, startGame, endGame } from './GameStore'
+import { getGamesWithState, addGame, getGame, startGame, endGame, joinGame, canJoinGame } from './GameStore'
 import { Map } from '../shared/Map'
 import { Unit } from '../shared/Unit'
 import { Army } from '../shared/Army'
@@ -35,6 +35,7 @@ app.get('/games/:id(\\d+)', function (req: any, res: any) {
 		game: game,
 		isWaiting: game.state == GameState.WAITING,
 		isInProgress: game.state == GameState.IN_PROGRESS,
+		canJoinGame: loginInfo.loggedIn && canJoinGame(req.params.id, loginInfo.username)
 		loginInfo: loginInfo,
 		scripts: ['login']
 	})
@@ -62,14 +63,16 @@ app.get('/games/finished', function (req: any, res: any) {
 })
 
 app.get('/games/create', function (req: any, res: any) {
-	res.render('createGame')
+	var loginInfo: LoginInfo = getLoginInfo(req.cookies)
+	res.render('createGame', { loginInfo: loginInfo })
 })
 
 app.post('/api/games/create', function (req: any, res: any) {
 	var form = new formidable.IncomingForm()
+	var loginInfo: LoginInfo = getLoginInfo(req.cookies)
 
 	form.parse(req, function (err: any, fields: any, files: any) {
-		var id = addGame(fields.name, fields.numberOfPlayers)
+		var id = addGame(fields.name, fields.numberOfPlayers, loginInfo.username)
 		res.redirect('/games/' + id)
 	})
 })
@@ -83,6 +86,13 @@ app.post('/api/games/:id(\\d+)/end', function (req: any, res: any) {
 	endGame(req.params.id)
 	res.redirect(req.get('referer'));
 }) 
+
+app.get('/api/games/:id(\\d)/join', function (req: any, res: any) {
+	var loginInfo: LoginInfo = getLoginInfo(req.cookies)
+
+	joinGame(req.params.id, loginInfo.username)
+	res.redirect(req.get('referer'));
+})
 
 const publicPath = path.join(__dirname, '../public')
 app.use('/public', express.static(publicPath))
