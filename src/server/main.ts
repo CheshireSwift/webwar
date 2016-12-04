@@ -23,23 +23,23 @@ app.get('/map', function (req: any, res: any) {
 })
 
 app.get('/games/waiting', function (req: any, res: any) {
-	res.render('gameList', {
-		title: "Waiting Games",
-		games: getWaitingGames()
-	})
+  res.render('gameList', {
+    title: "Waiting Games",
+    games: getWaitingGames()
+  })
 })
 
 app.get('/games/create', function (req: any, res: any) {
-	res.render('createGame')
+  res.render('createGame')
 })
 
 app.post('/games', bodyParser.json(), function (req: any, res: any) {
-	var form = new formidable.IncomingForm()
+  var form = new formidable.IncomingForm()
 
-	form.parse(req, function (err: any, fields: any, files: any) {
-		var id = addGame(fields.name)
-		res.redirect('/games/' + id)
-	})
+  form.parse(req, function (err: any, fields: any, files: any) {
+    var id = addGame(fields.name)
+    res.redirect('/games/' + id)
+  })
 })
 
 const publicPath = path.join(__dirname, '../public')
