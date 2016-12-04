@@ -2,7 +2,8 @@
   "files": [
     "src/server/*.ts",
     "src/shared/*.ts",
-    "typings/index.d.ts"
+    "typings/index.d.ts",
+    "types/index.d.ts"
   ],
   "compilerOptions": {
     "noImplicitAny": true,

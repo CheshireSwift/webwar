@@ -15,14 +15,14 @@ const STATIC_PUBLIC = 'static/public/**/*'
 const STATIC_SERVER = 'static/server/**/*'
 const STYLES = 'src/public/style/style.scss'
 
-gulp.task('compileClient', function() {
-  var files = ['public/infantry.ts', 'public/mapGrid.ts'];
+function compileClient() {
+  var files = ['public/infantry.ts', 'public/mapGrid.ts']
   var tasks = files.map(function(entry) {
     return browserify({
         basedir: 'src',
         debug: true,
         entries: [entry],
-        require: ['../typings/index.d.ts'],
+        require: ['../typings/index.d.ts', '../types/index.d.ts'],
         cache: {},
         packageCache: {}
       }).plugin(tsify, {
@@ -32,39 +32,38 @@ gulp.task('compileClient', function() {
       .pipe(source(entry))
       .pipe(rename({ extname: '.bundle.js' }))
       .pipe(gulp.dest("dist"));
-  });
+  })
   return es.merge.apply(null, tasks);
-})
+}
 
-gulp.task('copyClient', function() {
-  return gulp.src([STATIC_PUBLIC])
-    .pipe(gulp.dest('dist/public'))
-})
-
-gulp.task('compileStyles', function() {
-  return gulp.src(STYLES)
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('dist/public'))
-})
-
-gulp.task('browser', ['compileClient', 'copyClient', 'compileStyles'])
-
-gulp.task('compileServer', function() {
+function compileServer(fatal) {
   var tsProject = ts.createProject('tsconfig-server.json')
   return tsProject.src()
     .pipe(tsProject())
+    .on('error', function() { if (fatal) { process.exit(1) } })
     .js.pipe(gulp.dest('dist'))
-})
+}
 
-gulp.task('copyServer', function() {
-  return gulp.src([STATIC_SERVER])
-    .pipe(gulp.dest('dist/server'))
-})
+function compileStyles(fatal) {
+  return gulp.src(STYLES)
+    .pipe(sass().on('error', function(err) { sass.logError(err); if (fatal) { process.exit(1) } }))
+    .pipe(gulp.dest('dist/public'))
+}
 
+gulp.task('compileClient', compileClient)
+gulp.task('compileStyles', function() { return compileStyles(false) })
+gulp.task('compileServer', function() { return compileServer(false) })
+gulp.task('copyClient', function() { return gulp.src([STATIC_PUBLIC]).pipe(gulp.dest('dist/public')) })
+gulp.task('copyServer', function() { return gulp.src([STATIC_SERVER]).pipe(gulp.dest('dist/server')) })
+
+gulp.task('browser', ['compileClient', 'copyClient', 'compileStyles'])
 gulp.task('server', ['compileServer', 'copyServer'])
 
-gulp.task('default', ['browser', 'server'])
+gulp.task('verifyBrowser', ['compileClient'], function() { return compileStyles(true) })
+gulp.task('verifyServer', function() { return compileServer(true) })
+gulp.task('test', ['verifyBrowser', 'verifyServer'])
 
+gulp.task('default', ['browser', 'server'])
 gulp.task('watch', ['browser', 'server'], function() {
   // Run server to start with
   server.run(['dist/server/main.js'])
@@ -80,3 +79,4 @@ gulp.task('watch', ['browser', 'server'], function() {
   gulp.watch(['dist/public/**/*'], server.notify)
   gulp.watch(['dist/server/**/*'], server.run)
 })
+

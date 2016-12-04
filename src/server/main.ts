@@ -1,8 +1,8 @@
-import path = require('path');
-import * as hbs from 'hbs';
+import path = require('path')
+import hbs = require('hbs')
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
-import * as formidable from 'formidable'
+import formidable  = require('formidable')
 
 import { Game, getWaitingGames, addGame } from '../shared/Game'
 import { Map } from '../shared/Map'
