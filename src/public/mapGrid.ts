@@ -10,17 +10,16 @@ window.onload = function() {
   $('#loadUnits').click(function() { loadUnits() })
 }
 
-
 function loadUnits(): void {
   let testArmy = Army.test()
   drawArmy(testArmy)
 }
 
-function mapScale():number {
+function mapScale(): number {
   return 100
 }
 
-function drawArmy(army:Army) {
+function drawArmy(army: Army) {
   let mapWidth =$('#mapContainer').width() / mapScale()
   for (let unit of army.units) {
     let targetIndex = unit.xPos + (unit.yPos * mapWidth)
